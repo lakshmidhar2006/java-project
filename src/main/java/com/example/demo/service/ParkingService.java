@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ParkingService {
@@ -32,7 +33,7 @@ public class ParkingService {
         slot.setParkingFloor(floor);
         return slotRepository.save(slot);
     }
-
+    @Transactional
     public Reservation reserveSlot(Reservation reservation) {
         if (!reservation.getStartTime().isBefore(reservation.getEndTime())) {
             throw new IllegalArgumentException("Start time must be before end time.");
